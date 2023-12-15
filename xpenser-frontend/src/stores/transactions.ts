@@ -7,7 +7,6 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const transactions = ref<Transaction[]>([{ id: 1, text: 'Paycheck', amount: 200 }])
 
   const total = computed(() => {
-    console.log('total hit')
     return transactions.value.reduce((acc, t) => acc + t.amount, 0)
   })
   const incomeTotal = computed(() =>
