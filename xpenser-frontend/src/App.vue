@@ -1,9 +1,3 @@
 <template>
-  <DashboardView />
+  <router-view></router-view>
 </template>
-
-<script setup>
-import DashboardView from './views/DashboardView.vue'
-</script>
-
-<style scoped></style>

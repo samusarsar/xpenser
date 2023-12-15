@@ -79,7 +79,8 @@ label {
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+input[type='password'] {
   border: 1px solid #dedede;
   border-radius: 2px;
   display: block;
@@ -99,6 +100,16 @@ input[type='number'] {
   margin: 10px 0 30px;
   padding: 10px;
   width: 100%;
+}
+
+.btn:hover {
+  background-color: #8068fd;
+  transition: all 0.1s ease-out;
+}
+
+.btn:active {
+  background-color: #6142ff;
+  transition: all 0.1s ease-out;
 }
 
 .btn:focus,
