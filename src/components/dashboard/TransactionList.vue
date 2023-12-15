@@ -19,7 +19,7 @@ import type { Transaction } from '@/common/types'
 
 const emit = defineEmits(['transactionDeleted'])
 
-const props = defineProps({
+defineProps({
   transactions: {
     type: Array<Transaction>,
     required: true
