@@ -1,6 +1,4 @@
-import Transaction from '../models/Transaction.js';
 import User from '../models/User.js';
-import { createError } from '../error.js';
 
 export const getAllTransactions = async (req, res, next) => {
   try {
@@ -33,13 +31,6 @@ export const deleteTransaction = async (req, res, next) => {
   try {
     const { id } = req.user;
     const { transactionId } = req.body;
-
-    const transactionExists = Transaction.findOne({
-      transactionId,
-    });
-
-    if (!transactionExists)
-      return next(createError(404, 'Transaction not found!'));
 
     const updatedUser = await User.findByIdAndUpdate(
       id,

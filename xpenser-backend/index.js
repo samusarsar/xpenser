@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
-app.use('/api/games', transactionsRoutes);
+app.use('/api/transactions', transactionsRoutes);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

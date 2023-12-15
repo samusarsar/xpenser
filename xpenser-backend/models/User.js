@@ -1,5 +1,23 @@
 import mongoose from 'mongoose';
 
+const TransactionSubSchema = new mongoose.Schema(
+  {
+    transactionId: {
+      type: String,
+      required: true,
+    },
+    text: {
+      type: String,
+      require: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
+
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -17,7 +35,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     transactions: {
-      type: Array,
+      type: [TransactionSubSchema],
       default: [],
     },
     avatar: {

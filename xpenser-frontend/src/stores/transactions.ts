@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 import type { Transaction, TransactionData } from '@/common/types'
 
-export const useTransactionsStore = defineStore('transactions', () => {
+export const useTransactionsStore = defineStore('transactions', async () => {
   const transactions = ref<Transaction[]>([{ id: 1, text: 'Paycheck', amount: 200 }])
 
   const total = computed(() => {
