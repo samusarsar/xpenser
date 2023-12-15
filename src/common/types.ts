@@ -3,3 +3,8 @@ export type Transaction = {
   text: string
   amount: number
 }
+
+export type TransactionData = {
+  text: string
+  amount: number
+}
