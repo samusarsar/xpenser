@@ -1,5 +1,4 @@
 <template>
-  <TheHeader />
   <div class="container">
     <TotalBalance />
     <IncomeExpenses />
@@ -9,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import TheHeader from '../components/ui/TheHeader.vue'
 import TotalBalance from '../components/dashboard/TotalBalance.vue'
 import IncomeExpenses from '../components/dashboard/IncomeExpenses.vue'
 import TransactionList from '../components/dashboard/TransactionList.vue'
