@@ -14,11 +14,11 @@ const router = createRouter({
     },
     {
       path: '/auth',
-      name: 'auth',
       component: AuthView,
       children: [
         {
           path: '',
+          name: 'auth',
           redirect: () => {
             return { path: 'auth/login' }
           }
