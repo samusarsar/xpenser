@@ -19,15 +19,16 @@ export type UserData = {
   email: string
   avatar: string
   createdAt: Date
+  transactions: Transaction[]
 }
 
 export type Transaction = {
-  transactionId: number
+  _id: string
   text: string
   amount: number
 }
 
-export type TransactionData = {
+export type NewTransactionData = {
   text: string
   amount: number
 }
