@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="onLogIn">
     <div class="form-control">
-      <label for="text">Email</label>
-      <input type="text" id="email" placeholder="Enter email..." v-model="email" />
+      <label for="text">Username</label>
+      <input type="text" id="username" placeholder="Enter username..." v-model="username" />
     </div>
     <div class="form-control">
       <label for="amount">Password</label>
@@ -14,17 +14,27 @@
 </template>
 
 <script setup lang="ts">
+import useAuth from '@/hooks/useAuth'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 
+const { signIn } = useAuth()
+
 const toast = useToast()
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
 
-const onLogIn = () => {
-  if (!email.value || !password.value) {
+const onLogIn = async () => {
+  if (!username.value || !password.value) {
     toast.error('Please fill out all fields! Fields must not be empty.')
+    return
+  }
+
+  try {
+    await signIn({ username: username.value, password: password.value })
+  } catch (error: Error | any) {
+    toast.error(error.message)
   }
 }
 </script>

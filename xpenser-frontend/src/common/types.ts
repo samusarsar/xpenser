@@ -6,15 +6,23 @@ export type NewUserData = {
   password: string
 }
 
+export type UserCredentials = {
+  username: string
+  password: string
+}
+
 export type UserData = {
+  userId: string
   firstName: string
   lastName: string
   username: string
   email: string
+  avatar: string
+  createdAt: Date
 }
 
 export type Transaction = {
-  id: number
+  transactionId: number
   text: string
   amount: number
 }

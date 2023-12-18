@@ -1,7 +1,8 @@
 import { useRouter } from 'vue-router'
-import type { NewUserData } from '@/common/types'
+import type { NewUserData, UserCredentials } from '@/common/types'
 import { useAuthStore } from '@/stores/auth'
-import { createUser } from '@/utils/auth.utils'
+import { createUser, signInUser } from '@/utils/auth.utils'
+import Cookies from 'js-cookie'
 
 const useAuth = () => {
   const store = useAuthStore()
@@ -10,9 +11,9 @@ const useAuth = () => {
   const signUp = async (newUserData: NewUserData) => {
     const newUserRes = await createUser(newUserData)
 
-    router.replace({ path: '/auth/login' })
+    if (newUserRes.ok) {
+      router.replace({ path: '/auth/signin' })
 
-    if (newUserRes.status === 200) {
       return {
         status: 'success',
         message: ''
@@ -22,7 +23,35 @@ const useAuth = () => {
     }
   }
 
-  return { signUp }
+  const signIn = async (userCredentials: UserCredentials) => {
+    const res = await signInUser(userCredentials)
+    const data = await res.json()
+
+    if (res.ok) {
+      const cookies = Cookies.get()
+
+      const { _id, firstName, lastName, username, email, transactions, avatar, createdAt } = data
+
+      const user = {
+        userId: _id,
+        firstName,
+        lastName,
+        username,
+        email,
+        transactions,
+        avatar,
+        createdAt
+      }
+
+      if (cookies.access_token) store.signInSuccess(user, cookies.access_token)
+
+      router.replace({ path: '/', replace: true })
+    } else {
+      throw new Error(data.message)
+    }
+  }
+
+  return { signUp, signIn }
 }
 
 export default useAuth

@@ -24,7 +24,7 @@
     </div>
     <button class="btn">Sign Up</button>
   </form>
-  <p>Already registered? <router-link :to="'login'">Log In</router-link></p>
+  <p>Already registered? <router-link :to="'signin'">Log In</router-link></p>
 </template>
 
 <script setup lang="ts">
@@ -45,6 +45,7 @@ const password = ref('')
 const onSignUp = async () => {
   if (!firstName.value || !lastName.value || !username.value || !email.value || !password.value) {
     toast.error('Please fill out all fields! Fields must not be empty.')
+    return
   }
 
   try {
@@ -55,8 +56,8 @@ const onSignUp = async () => {
       email: email.value,
       password: password.value
     })
-  } catch (error) {
-    console.error(error)
+  } catch (error: Error | any) {
+    toast.error(error.message)
   }
 }
 </script>
