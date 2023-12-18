@@ -25,6 +25,12 @@ body {
   width: 400px;
 }
 
+.col-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
 h1 {
   letter-spacing: 1px;
   margin: 0;
