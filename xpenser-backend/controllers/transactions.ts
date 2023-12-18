@@ -1,6 +1,12 @@
-import User from '../models/User.js';
+import { NextFunction, Response } from 'express';
+import { IRequest } from '../common/types';
+import User from '../models/User';
 
-export const getAllTransactions = async (req, res, next) => {
+export const getAllTransactions = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const transactions = await User.findOne({
       username: req.body.username,
@@ -11,7 +17,11 @@ export const getAllTransactions = async (req, res, next) => {
   }
 };
 
-export const addTransaction = async (req, res, next) => {
+export const addTransaction = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { id } = req.user;
 
@@ -27,7 +37,11 @@ export const addTransaction = async (req, res, next) => {
   }
 };
 
-export const deleteTransaction = async (req, res, next) => {
+export const deleteTransaction = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { id } = req.user;
     const { transactionId } = req.body;

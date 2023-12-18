@@ -1,18 +1,19 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import usersRoutes from './route/users.js';
-import authRoutes from './route/auth.js';
-import transactionsRoutes from './route/transactions.js';
+import usersRoutes from './route/users';
+import authRoutes from './route/auth';
+import transactionsRoutes from './route/transactions';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { IError } from './common/types';
 
 const app = express();
 dotenv.config();
 
 const connectDB = () => {
   mongoose
-    .connect(process.env.MONGO_CONNECTION_STRING)
+    .connect(process.env.MONGO_CONNECTION_STRING as string)
     .then(() => {
       console.log('Connected to MongoDB');
     })
@@ -33,7 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/transactions', transactionsRoutes);
 
-app.use((err, req, res, next) => {
+app.use((err: IError, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 500;
   const message = err.message || 'Something went wrong!';
 

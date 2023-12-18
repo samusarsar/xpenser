@@ -1,10 +1,16 @@
-import { createError } from '../error.js';
-import User from '../models/User.js';
+import { NextFunction, Response } from 'express';
+import { IRequest } from '../common/types';
+import { createError } from '../error';
+import User from '../models/User';
 
-export const getUser = async (req, res, next) => {
+export const getUser = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const user = await User.findById(req.params.id);
-    const { password, ...other } = user._doc;
+    const { password, ...other } = user;
 
     res.status(200).json(other);
   } catch (error) {
@@ -12,7 +18,11 @@ export const getUser = async (req, res, next) => {
   }
 };
 
-export const updateUser = async (req, res, next) => {
+export const updateUser = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   if (req.params.id === req.user.id) {
     try {
       const updatedUser = await User.findByIdAndUpdate(
@@ -31,7 +41,11 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-export const deleteUser = async (req, res, next) => {
+export const deleteUser = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   if (req.params.id === req.user.id) {
     try {
       await User.findByIdAndDelete(req.params.id);

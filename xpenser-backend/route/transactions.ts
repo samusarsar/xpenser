@@ -3,8 +3,8 @@ import {
   getAllTransactions,
   addTransaction,
   deleteTransaction,
-} from '../controllers/transactions.js';
-import { verifyToken } from '../verifyToken.js';
+} from '../controllers/transactions';
+import { verifyToken } from '../verifyToken';
 
 const router = express.Router();
 

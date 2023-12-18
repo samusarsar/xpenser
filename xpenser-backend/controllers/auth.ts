@@ -1,9 +1,15 @@
-import User from '../models/User.js';
+import User from '../models/User';
 import bcrypt from 'bcryptjs';
-import { createError } from '../error.js';
+import { createError } from '../error';
 import jwt from 'jsonwebtoken';
+import { IRequest, UserDocument } from '../common/types';
+import { NextFunction, Response } from 'express';
 
-export const signUp = async (req, res, next) => {
+export const signUp = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -17,9 +23,15 @@ export const signUp = async (req, res, next) => {
   }
 };
 
-export const signIn = async (req, res, next) => {
+export const signIn = async (
+  req: IRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const user = (await User.findOne({
+      username: req.body.username,
+    })) as UserDocument;
 
     if (!user) return next(createError(404, 'User not found!'));
 
@@ -30,7 +42,7 @@ export const signIn = async (req, res, next) => {
 
     if (!isPasswordValid) return next(createError(400, 'Wrong Credentials'));
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
     const { password, ...other } = user._doc;
 
     res
