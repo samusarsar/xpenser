@@ -3,6 +3,7 @@ import type { NewUserData, UserCredentials } from '@/common/types'
 import { useAuthStore } from '@/stores/auth'
 import { createUser, signInUser } from '@/utils/auth.utils'
 import Cookies from 'js-cookie'
+import { SIGN_IN_PATH_NAME } from '@/common/constants'
 
 const useAuth = () => {
   const store = useAuthStore()
@@ -51,7 +52,13 @@ const useAuth = () => {
     }
   }
 
-  return { signUp, signIn }
+  const signOut = () => {
+    Cookies.remove('access_token')
+    store.signOutSuccess()
+    router.push({ name: SIGN_IN_PATH_NAME })
+  }
+
+  return { signUp, signIn, signOut }
 }
 
 export default useAuth
