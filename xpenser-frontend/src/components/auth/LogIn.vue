@@ -10,10 +10,11 @@
     </div>
     <button class="btn">Log In</button>
   </form>
-  <p>Not yet registered? <router-link :to="'signup'">Sign Up</router-link></p>
+  <p>Not yet registered? <router-link :to="{ name: SIGN_UP_PATH_NAME }">Sign Up</router-link></p>
 </template>
 
 <script setup lang="ts">
+import { SIGN_UP_PATH_NAME } from '@/common/constants'
 import useAuth from '@/hooks/useAuth'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'

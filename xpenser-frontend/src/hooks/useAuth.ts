@@ -13,7 +13,7 @@ const useAuth = () => {
     const newUserRes = await createUser(newUserData)
 
     if (newUserRes.ok) {
-      router.replace({ path: '/auth/signin' })
+      router.replace({ name: SIGN_IN_PATH_NAME })
 
       return {
         status: 'success',
@@ -46,7 +46,7 @@ const useAuth = () => {
 
       if (cookies.access_token) store.signInSuccess(user, cookies.access_token)
 
-      router.replace({ path: '/', replace: true })
+      router.replace({ name: DASHBOARD_PATH_NAME })
     } else {
       throw new Error(data.message)
     }

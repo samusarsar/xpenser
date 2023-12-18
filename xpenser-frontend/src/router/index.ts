@@ -4,13 +4,14 @@ import DashboardView from '@/views/DashboardView.vue'
 import LogIn from '@/components/auth/LogIn.vue'
 import SignUp from '@/components/auth/SignUp.vue'
 import { useAuthStore } from '@/stores/auth'
+import { DASHBOARD_PATH_NAME, SIGN_IN_PATH_NAME, SIGN_UP_PATH_NAME } from '@/common/constants'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Dashboard',
+      name: DASHBOARD_PATH_NAME,
       component: DashboardView
     },
     {
@@ -24,8 +25,8 @@ const router = createRouter({
             return { path: 'auth/signin' }
           }
         },
-        { name: 'SignIn', path: 'signin', component: LogIn },
-        { name: 'SignUp', path: 'signup', component: SignUp }
+        { name: SIGN_IN_PATH_NAME, path: 'signin', component: LogIn },
+        { name: SIGN_UP_PATH_NAME, path: 'signup', component: SignUp }
       ]
     }
   ]
@@ -34,10 +35,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const store = useAuthStore()
 
-  if (to.name === 'SignUp' || to.name === 'SignIn') {
-    return store.isAuthenticated ? next({ name: 'Dashboard' }) : next()
+  if (to.name === SIGN_UP_PATH_NAME || to.name === SIGN_IN_PATH_NAME) {
+    return store.isAuthenticated ? next({ name: DASHBOARD_PATH_NAME }) : next()
   } else {
-    return store.isAuthenticated ? next() : next({ name: 'SignIn' })
+    return store.isAuthenticated ? next() : next({ name: SIGN_IN_PATH_NAME })
   }
 })
 

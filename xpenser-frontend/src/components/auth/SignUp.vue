@@ -24,10 +24,11 @@
     </div>
     <button class="btn">Sign Up</button>
   </form>
-  <p>Already registered? <router-link :to="'signin'">Log In</router-link></p>
+  <p>Already registered? <router-link :to="{ name: SIGN_IN_PATH_NAME }">Log In</router-link></p>
 </template>
 
 <script setup lang="ts">
+import { SIGN_IN_PATH_NAME } from '@/common/constants'
 import useAuth from '@/hooks/useAuth'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
