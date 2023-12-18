@@ -3,7 +3,7 @@ import type { NewUserData, UserCredentials } from '@/common/types'
 import { useAuthStore } from '@/stores/auth'
 import { createUser, signInUser } from '@/utils/auth.utils'
 import Cookies from 'js-cookie'
-import { SIGN_IN_PATH_NAME } from '@/common/constants'
+import { SIGN_IN_PATH_NAME, DASHBOARD_PATH_NAME } from '@/common/constants'
 
 const useAuth = () => {
   const store = useAuthStore()

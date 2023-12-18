@@ -20,9 +20,12 @@
 import { ref } from 'vue'
 import { useTransactionsStore } from '@/stores/transactions'
 import { useToast } from 'vue-toastification'
+import useTransactions from '@/hooks/useTransactions'
 
 const text = ref<string | null>(null)
 const amount = ref<number | null>(null)
+
+const { createTransaction } = useTransactions()
 
 const store = useTransactionsStore()
 
@@ -39,12 +42,16 @@ const onAddTransaction = () => {
     amount: amount.value
   }
 
-  store.addTransaction(transactionData)
+  try {
+    createTransaction(transactionData)
 
-  toast.success(`${transactionData.amount >= 0 ? 'Income' : 'Expense'} transaction added!`)
+    toast.success(`${transactionData.amount >= 0 ? 'Income' : 'Expense'} transaction added!`)
 
-  text.value = null
-  amount.value = null
+    text.value = null
+    amount.value = null
+  } catch (error: Error | any) {
+    toast.error('Could not add transaction!')
+  }
 }
 </script>
 
