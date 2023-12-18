@@ -3,7 +3,7 @@ import User from '../models/User.js';
 export const getAllTransactions = async (req, res, next) => {
   try {
     const transactions = await User.findOne({
-      email: req.body.email,
+      username: req.body.username,
     });
     res.status(200).json(transactions);
   } catch (error) {
@@ -37,7 +37,7 @@ export const deleteTransaction = async (req, res, next) => {
       {
         $pull: {
           transactions: {
-            transactionId,
+            _id: transactionId,
           },
         },
       },
