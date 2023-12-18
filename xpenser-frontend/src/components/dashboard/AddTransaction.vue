@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useTransactionsStore } from '@/stores/transactions'
 import { useToast } from 'vue-toastification'
 import useTransactions from '@/hooks/useTransactions'
 
@@ -26,8 +25,6 @@ const text = ref<string | null>(null)
 const amount = ref<number | null>(null)
 
 const { createTransaction } = useTransactions()
-
-const store = useTransactionsStore()
 
 const toast = useToast()
 

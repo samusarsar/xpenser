@@ -3,6 +3,6 @@
   <h3>The New Expense Tracker</h3>
 </template>
 
-<script setup></script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
