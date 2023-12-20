@@ -1,18 +1,23 @@
 <template>
-  <Teleport to="body" v-if="transaction">
-    <div class="modal-backdrop" @click="onCloseModal()"></div>
-    <div class="container modal">
-      <div class="header" :class="transaction.amount < 0 ? 'header-expense' : 'header-income'">
-        <h3>{{ transaction.text }}</h3>
+  <Teleport to="body">
+    <Transition name="backdrop">
+      <div v-if="transaction" class="modal-backdrop" @click="onCloseModal()"></div>
+    </Transition>
+
+    <Transition>
+      <div v-if="transaction" class="container modal">
+        <div class="header" :class="transaction.amount < 0 ? 'header-expense' : 'header-income'">
+          <h3>{{ transaction.text }}</h3>
+        </div>
+        <div class="body">
+          <p><b>Amount:</b></p>
+          <p>${{ transaction.amount }}</p>
+        </div>
+        <div class="footer">
+          <button class="btn" @click="onCloseModal()">Close</button>
+        </div>
       </div>
-      <div class="body">
-        <p><b>Amount:</b></p>
-        <p>${{ transaction.amount }}</p>
-      </div>
-      <div class="footer">
-        <button class="btn-modal" @click="onCloseModal()">Close</button>
-      </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 
@@ -80,21 +85,29 @@ h3 {
   padding: 0 10px;
 }
 
-.btn-modal {
-  width: fit-content;
-  padding: 10px;
-  color: white;
-  background-color: #778899;
-  box-shadow: none;
-  border: 1px solid black;
-  border-radius: 3px;
+.v-enter-to,
+.v-leave-from,
+.backdrop.enter-to,
+.backdrop-leave-from {
+  opacity: 1;
+  transform: scale(100%);
 }
 
-.btn-modal:hover {
-  background-color: #5079a2;
+.v-enter-active,
+.v-leave-active,
+.backdrop-enter-active,
+.backdrop-leave-active {
+  transition: 300ms ease-in-out;
 }
 
-.btn-modal:active {
-  background-color: #0051a1;
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: scale(80%);
+}
+
+.backdrop-enter-from,
+.backdrop-leave-to {
+  opacity: 0;
 }
 </style>
