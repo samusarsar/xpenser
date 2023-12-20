@@ -37,7 +37,7 @@ const onDeleteTransaction = async (id: string) => {
 
     toast.success('Transaction deleted!')
   } catch (error: Error | any) {
-    toast.error('Could not deleted transaction!')
+    toast.error('Could not delete transaction!')
   }
 }
 
