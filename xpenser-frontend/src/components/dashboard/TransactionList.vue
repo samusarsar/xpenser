@@ -2,16 +2,20 @@
   <h3>History</h3>
   <ModalTransaction :transaction="selectedTransaction" @close-modal="onCloseModal" />
   <ul id="list" class="list">
-    <li
-      v-for="transaction in store.transactions"
-      :key="transaction._id"
-      :class="transaction.amount < 0 ? 'minus' : 'plus'"
-      @click="onOpenModal($event, transaction)"
-    >
-      {{ transaction.text }} <span>${{ transaction.amount }}</span>
-      <button class="delete-btn" @click="onDeleteTransaction(transaction._id)">x</button>
-    </li>
-    <li v-if="!store.transactions.length"><span>No transactions yet...</span></li>
+    <TransitionGroup>
+      <li
+        v-for="transaction in store.transactions"
+        :key="transaction._id"
+        :class="transaction.amount < 0 ? 'minus' : 'plus'"
+        @click="onOpenModal($event, transaction)"
+      >
+        {{ transaction.text }} <span>${{ transaction.amount }}</span>
+        <button class="delete-btn" @click="onDeleteTransaction(transaction._id)">x</button>
+      </li>
+      <li key="no-transactions" v-if="!store.transactions.length">
+        <span>No transactions yet...</span>
+      </li>
+    </TransitionGroup>
   </ul>
 </template>
 
@@ -53,4 +57,25 @@ const onCloseModal = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-enter-to,
+.v-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 500ms ease-in-out;
+}
+
+.v-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>
