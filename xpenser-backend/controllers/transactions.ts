@@ -1,6 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { IRequest } from '../common/types';
 import User from '../models/User';
+import { connectDB } from '..';
 
 export const getAllTransactions = async (
   req: IRequest,
@@ -8,6 +9,8 @@ export const getAllTransactions = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const transactions = await User.findOne({
       username: req.body.username,
     });
@@ -23,6 +26,8 @@ export const addTransaction = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const { id } = req.user;
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -43,6 +48,8 @@ export const deleteTransaction = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const { id } = req.user;
     const { transactionId } = req.body;
 

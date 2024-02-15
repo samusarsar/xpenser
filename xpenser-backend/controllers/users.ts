@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 import { IRequest } from '../common/types';
 import { createError } from '../error';
 import User from '../models/User';
+import { connectDB } from '..';
 
 export const getUser = async (
   req: IRequest,
@@ -9,6 +10,8 @@ export const getUser = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const user = await User.findById(req.params.id);
     const { password, ...other } = user;
 
@@ -25,6 +28,8 @@ export const updateUser = async (
 ) => {
   if (req.params.id === req.user.id) {
     try {
+      connectDB();
+
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         {
@@ -48,6 +53,8 @@ export const deleteUser = async (
 ) => {
   if (req.params.id === req.user.id) {
     try {
+      connectDB();
+
       await User.findByIdAndDelete(req.params.id);
 
       res.status(200).json('User has been deleted...');

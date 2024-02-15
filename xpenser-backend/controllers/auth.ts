@@ -4,6 +4,7 @@ import { createError } from '../error';
 import jwt from 'jsonwebtoken';
 import { IRequest, UserDocument } from '../common/types';
 import { NextFunction, Response } from 'express';
+import { connectDB } from '..';
 
 export const signUp = async (
   req: IRequest,
@@ -11,6 +12,8 @@ export const signUp = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
@@ -29,6 +32,8 @@ export const signIn = async (
   next: NextFunction,
 ) => {
   try {
+    connectDB();
+
     const user = (await User.findOne({
       username: req.body.username,
     })) as UserDocument;
