@@ -11,7 +11,7 @@ import { IError } from './common/types';
 const app = express();
 dotenv.config();
 
-const connectDB = () => {
+export const connectDB = () => {
   mongoose
     .connect(process.env.MONGO_CONNECTION_STRING as string)
     .then(() => {
@@ -24,7 +24,7 @@ const connectDB = () => {
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://xpenser-drab.vercel.app/',
     credentials: true,
   }),
 );
@@ -49,3 +49,5 @@ app.listen(8080, () => {
   connectDB();
   console.log('Server is running on port 8080');
 });
+
+export default app;
